@@ -44,12 +44,12 @@ public class Element extends Polygon implements KeyListener{
         double dx = moveIncrement * Math.cos(Math.toRadians(rotation)); // Calculate change in x
         double dy = moveIncrement * Math.sin(Math.toRadians(rotation)); // Calculate change in y
         if(forward) {
-            position.setX(position.getX() - dx);
-            position.setY(position.getY() - dy);
-        }
-        if(backward) {
             position.setX(position.getX() + dx);
             position.setY(position.getY() + dy);
+        }
+        if(backward) {
+            position.setX(position.getX() - dx);
+            position.setY(position.getY() - dy);
         }
     }
 

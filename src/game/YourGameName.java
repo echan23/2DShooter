@@ -13,7 +13,7 @@ import java.util.ArrayList;
 class YourGameName extends Game{
 	static int counter = 0;
 	private Point center;
-	private Element one;
+	private Element turret;
 	private ArrayList<Element> elements;
 	
 	public YourGameName() {
@@ -21,16 +21,20 @@ class YourGameName extends Game{
 	    this.setFocusable(true);
 		this.requestFocus();
 		this.elements = new ArrayList<Element>();
-		Point[] squarePoints = {
-	            new Point(0, 0),
-	            new Point(20, 0),
-	            new Point(20, 20),
-	            new Point(0, 20)
+		Point[] turretPoints = {
+			new Point(0, 0),
+			new Point(0, 60),
+			new Point(30, 60),
+			new Point(30, 35),
+			new Point(50, 35),
+			new Point(50, 25),
+			new Point(30, 25),
+			new Point(30, 0)
 	    };
 		center = new Point(width/2, height/2);
-		one = new Element(squarePoints, center, 90);
-		this.addKeyListener(one);
-		elements.add(one);
+		turret = new Element(turretPoints, center, 270);
+		this.addKeyListener(turret);
+		elements.add(turret);
 	}
   
 	@Override
