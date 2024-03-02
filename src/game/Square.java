@@ -7,7 +7,7 @@ public class Square extends Polygon {
 
     public Square(Point[] inShape, Point inPosition, double inRotation) {
         super(inShape, inPosition, inRotation);
-        forward = true;
+        forward = false;
         left = false;
         right = false;
         backward = false;
@@ -26,28 +26,25 @@ public class Square extends Polygon {
     }
     
     public void move() {
-        // Adjust the position of the square's vertices
-        Point[] vertices = getPoints();
-        if(right) {
-        	for (int i = 0; i < vertices.length; i++) {
-                vertices[i] = new Point(vertices[i].getX() + stepSize, vertices[i].getY());
-            }
+        if (right) {
+            position.setX(position.getX() + stepSize); // Update x position
         }
-        if(left) {
-        	for (int i = 0; i < vertices.length; i++) {
-                vertices[i] = new Point(vertices[i].getX() - stepSize, vertices[i].getY());
-            }
+        if (left) {
+            position.setX(position.getX() - stepSize); // Update x position
         }
-        if(forward) {
-        	for (int i = 0; i < vertices.length; i++) {
-                vertices[i] = new Point(vertices[i].getX(), vertices[i].getY() + stepSize);
-            }
+        if (forward) {
+            position.setY(position.getY() - stepSize); // Update y position
         }
-        if(backward) {
-        	for (int i = 0; i < vertices.length; i++) {
-                vertices[i] = new Point(vertices[i].getX(), vertices[i].getY() - stepSize);
-            }
+        if (backward) {
+            position.setY(position.getY() + stepSize); // Update y position
         }
     }
-    
+
+    public void keyPressed(KeyEvent e){
+
+    }
+
+    public void keyReleased(KeyEvent e){
+        
+    }
 }	

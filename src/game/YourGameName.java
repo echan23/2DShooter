@@ -40,9 +40,6 @@ class YourGameName extends Game {
     	brush.setColor(Color.white);
     	brush.drawString("Counter is " + counter,10,10);
     	one.move();
-    	one.move();
-    	one.move();
-    	one.move();
     	one.paint(brush);
     }
   
