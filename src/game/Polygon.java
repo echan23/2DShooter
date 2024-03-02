@@ -101,4 +101,18 @@ class Polygon {
     double area = findArea();
     return new Point(Math.abs(sum.x/(6*area)),Math.abs(sum.y/(6*area)));
   }
+
+  public boolean collides(Polygon other) {
+    for(Point point : other.getPoints()) {
+        if (this.contains(point)) {
+            return true;
+        }
+    }
+    for(Point point : this.getPoints()) {
+        if (other.contains(point)) {
+            return true;
+        }
+    }
+    return false;
+}
 }

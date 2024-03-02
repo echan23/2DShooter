@@ -8,17 +8,19 @@ NOTE: This class is the metaphorical "main method" of your program,
 
 */
 import java.awt.*;
-import java.awt.event.*;
+import java.util.ArrayList;
 
-class YourGameName extends Game {
+class YourGameName extends Game{
 	static int counter = 0;
 	private Point center;
-	private Square one;
+	private Element one;
+	private ArrayList<Element> elements;
 	
 	public YourGameName() {
 	    super("YourGameName!",800,600);
 	    this.setFocusable(true);
 		this.requestFocus();
+		this.elements = new ArrayList<Element>();
 		Point[] squarePoints = {
 	            new Point(0, 0),
 	            new Point(20, 0),
@@ -26,7 +28,9 @@ class YourGameName extends Game {
 	            new Point(0, 20)
 	    };
 		center = new Point(width/2, height/2);
-		one = new Square(squarePoints, center, 0);
+		one = new Element(squarePoints, center, 90);
+		this.addKeyListener(one);
+		elements.add(one);
 	}
   
 	@Override
@@ -39,8 +43,10 @@ class YourGameName extends Game {
     	counter++;
     	brush.setColor(Color.white);
     	brush.drawString("Counter is " + counter,10,10);
-    	one.move();
-    	one.paint(brush);
+		for(Element element: elements){
+			element.move();
+			element.paint(brush);
+		}
     }
   
 	public static void main (String[] args) {
