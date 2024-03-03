@@ -3,12 +3,20 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Element extends Polygon implements KeyListener{
-	boolean forward, left, right, backward;
-	private int stepSize = 20;
+public class Square extends Polygon implements KeyListener{
+	private boolean forward, left, right, backward;
+	private double stepSize = 5.0, rotationIncrement = 5.0;
+    private static Point[] squarePoints = {
+        new Point(0,0),
+        new Point(10,0),
+        new Point(10,10),
+        new Point(0, 10)
+    };
+    
+    
 
-    public Element(Point[] inShape, Point inPosition, double inRotation) {
-        super(inShape, inPosition, inRotation);
+    public Square(Point inPosition, double inRotation) {
+        super(squarePoints, inPosition, inRotation);
         forward = false;
         left = false;
         right = false;
@@ -27,10 +35,7 @@ public class Element extends Polygon implements KeyListener{
         brush.fillPolygon(x, y, l);
     }
     
-    public void move() {
-        double rotationIncrement = 5.0; // Rotation increment in degrees
-        double moveIncrement = 5.0; // Move increment in pixels
-    
+    public void move() {    
         // Rotate the element if appropriate keys are pressed
         if(left) {
             rotation -= rotationIncrement;
@@ -39,8 +44,8 @@ public class Element extends Polygon implements KeyListener{
             rotation += rotationIncrement;
         }
         // Move the element in the direction it's facing
-        double dx = moveIncrement * Math.cos(Math.toRadians(rotation)); // Calculate change in x
-        double dy = moveIncrement * Math.sin(Math.toRadians(rotation)); // Calculate change in y
+        double dx = stepSize * Math.cos(Math.toRadians(rotation)); // Calculate change in x
+        double dy = stepSize * Math.sin(Math.toRadians(rotation)); // Calculate change in y
         if(forward) {
             position.setX(position.getX() + dx);
             position.setY(position.getY() + dy);

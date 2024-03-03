@@ -13,26 +13,16 @@ import java.util.ArrayList;
 class YourGameName extends Game{
 	static int counter = 0;
 	private Point center;
-	private Element turret;
-	private ArrayList<Element> elements;
+	private Turret turret;
+	private ArrayList<Polygon> elements;
 	
 	public YourGameName() {
 	    super("YourGameName!",800,600);
 	    this.setFocusable(true);
 		this.requestFocus();
-		this.elements = new ArrayList<Element>();
-		Point[] turretPoints = {
-			new Point(0, 0),
-			new Point(0, 60),
-			new Point(30, 60),
-			new Point(30, 35),
-			new Point(50, 35),
-			new Point(50, 25),
-			new Point(30, 25),
-			new Point(30, 0)
-	    };
+		this.elements = new ArrayList<Polygon>();
 		center = new Point(width/2, height/2);
-		turret = new Element(turretPoints, center, 270);
+		turret = new Turret(center, 270);
 		this.addKeyListener(turret);
 		elements.add(turret);
 	}
@@ -47,10 +37,8 @@ class YourGameName extends Game{
     	counter++;
     	brush.setColor(Color.white);
     	brush.drawString("Counter is " + counter,10,10);
-		for(Element element: elements){
-			element.move();
-			element.paint(brush);
-		}
+		turret.move();
+		turret.paint(brush);
     }
   
 	public static void main (String[] args) {
