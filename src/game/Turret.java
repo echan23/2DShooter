@@ -6,7 +6,7 @@
     import java.awt.event.KeyListener;
 
     public class Turret extends Polygon implements KeyListener{
-        private boolean forward, left, right, backward, shoot;
+        private boolean forward, left, right, backward;
         private final double stepSize = 5.0, rotationIncrement = 5.0;
         // Set shape for the turret
         private static final Point[] turretPoints = {
@@ -27,7 +27,6 @@
             left = false;
             right = false;
             backward = false;
-            shoot = false;
             bullets = new ArrayList<>();
         }
     
