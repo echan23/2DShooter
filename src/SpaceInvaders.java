@@ -9,12 +9,12 @@ NOTE: This class is the metaphorical "main method" of your program,
 */
 import java.awt.*;
 
-class YourGameName extends Game{
+class SpaceInvaders extends Game{
 	static int counter = 0;
 	private Point center;
 	private Turret turret;
 	
-	public YourGameName() {
+	public SpaceInvaders() {
 	    super("YourGameName!",800,600);
 	    this.setFocusable(true);
 		this.requestFocus();
