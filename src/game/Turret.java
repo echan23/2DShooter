@@ -1,5 +1,6 @@
     package game;
-    import java.awt.Graphics;
+    import java.awt.Color;
+import java.awt.Graphics;
     import java.util.List;
     import java.util.ArrayList;
     import java.awt.event.KeyEvent;
@@ -40,6 +41,9 @@
 
         // Draws the turret polygon on the screen
         public void paint(Graphics brush) {
+            if(powerUp){
+                brush.setColor(Color.green);
+            }
             int l = this.getPoints().length;
             int[] x = new int[l];
             int[] y = new int[l];
@@ -114,28 +118,22 @@
         // Inner class representing a bullet fired from the turret
         class Bullet extends Polygon{
             private static final double BULLET_SPEED = 15.0;
-            private static Point[] bulletPoints;
-            static{
-                if (powerUp) {
-                    bulletPoints = new Point[]{
-                            new Point(0, 0),
-                            new Point(5, 0),
-                            new Point(5, 5),
-                            new Point(0, 5)
-                    };
-                } else {
-                    bulletPoints = new Point[]{
-                            new Point(0, 0),
-                            new Point(10, 0),
-                            new Point(10, 10),
-                            new Point(0, 10)
-                    };
-                }
-            }
+            private static Point[] bulletPoints = new Point[]{
+                new Point(0, 0),     
+                new Point(20, 0),               
+                new Point(20, 10),
+                new Point(0, 10)
+            };
+            private static Point[] doublePoints = new Point[]{
+                new Point(0, 0),
+                new Point(20, 0),
+                new Point(20, 50),
+                new Point(0, 50)
+            };
 
             // Constructor initializes bullet with points and position
-            public Bullet(Point position, double rotation) {
-                super(bulletPoints, position, rotation);
+            public Bullet(Point[] points, Point position, double rotation) {
+                super(points, position, rotation);
             }
     
             // Moves the bullet according to its rotation
@@ -167,7 +165,8 @@
             Point bulletPosition = new Point(position.getX() + offsetX, position.getY() + offsetY);
             
             // Create a new bullet object with the calculated position
-            Bullet bullet = new Bullet(bulletPosition, rotation);
+            Point[] pointsToUse = powerUp ? Bullet.doublePoints : Bullet.bulletPoints;
+            Bullet bullet = new Bullet(pointsToUse, bulletPosition, rotation);
             
             // Add the bullet to the list of bullets
             bullets.add(bullet);

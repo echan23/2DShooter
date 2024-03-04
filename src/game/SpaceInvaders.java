@@ -18,6 +18,7 @@ class SpaceInvaders extends Game{
 	private Turret turret;
 	private List<Enemy> enemies;
 	private List<PowerUp> powerups;
+
 	
 	public SpaceInvaders() {
         super("SpaceInvaders!", 800, 600);
