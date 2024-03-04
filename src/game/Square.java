@@ -12,8 +12,6 @@ public class Square extends Polygon implements KeyListener{
         new Point(10,10),
         new Point(0, 10)
     };
-    
-    
 
     public Square(Point inPosition, double inRotation) {
         super(squarePoints, inPosition, inRotation);
