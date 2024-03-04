@@ -71,7 +71,7 @@ class SpaceInvaders extends Game{
     }
   
 	public static void main (String[] args) {
-   		YourGameName a = new YourGameName();
+   		SpaceInvaders a = new SpaceInvaders();
 		a.repaint();
     }
 	
