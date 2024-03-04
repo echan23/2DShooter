@@ -14,19 +14,12 @@ import java.util.ArrayList;
 
 class SpaceInvaders extends Game{
 	static int counter = 0;
-	private Point center;
 	private Turret turret;
 	private List<Enemy> enemies;
 	
-<<<<<<< HEAD:src/game/YourGameName.java
-	public YourGameName() {
-        super("YourGameName!", 800, 600);
-		this.setFocusable(true);
-=======
 	public SpaceInvaders() {
-	    super("YourGameName!",800,600);
-	    this.setFocusable(true);
->>>>>>> e879492ff4704a1a3ebd8eb247c1a84971b910a5:src/SpaceInvaders.java
+        super("SpaceInvaders!", 800, 600);
+		this.setFocusable(true);
 		this.requestFocus();
         turret = new Turret(new Point(width / 2, height / 2), 270);
 		this.addKeyListener(turret);
