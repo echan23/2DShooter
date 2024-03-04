@@ -27,6 +27,7 @@ public class PowerUp extends Polygon{
         this.turret = turret;
     }
 
+    //Paints the powerup item
     public void paint(Graphics brush) {
         brush.setColor(Color.PINK);
         int l = this.getPoints().length;

@@ -55,8 +55,8 @@ class SpaceInvaders extends Game{
 		spawnY = Math.max(0, Math.min(spawnY, height));
 	
 		// Create new enemy
-		Enemy enemy = new Enemy(turret, new Point(spawnX, spawnY), 0); // You can adjust the initial rotation as needed
-		enemy.applyBuff(10.0, 2.0);
+		Enemy enemy = new Enemy(turret, new Point(spawnX, spawnY), 0); 
+		enemy.applyBuff(5.0, 2.0); //Applies speed buff to enemies for 5 seconds when they spawn
 		enemies.add(enemy);
 	}
 

@@ -18,6 +18,7 @@ public class Enemy extends Polygon{
         new Point(0, 20)
     };
 
+    //Turret is passed as a parameter because the enemies need to always move towards the player
     public Enemy(Turret turret, Point inPosition, double inRotation) {
         super(enemyPoints, inPosition, inRotation);
         this.turret = turret;
@@ -39,6 +40,7 @@ public class Enemy extends Polygon{
         brush.fillPolygon(x, y, l);
     }
     
+    //Updates position of enemy
     public void move() {
         // Calculate direction towards turret
         double dx = turret.position.getX() - position.getX();
@@ -54,6 +56,7 @@ public class Enemy extends Polygon{
         position.setY(position.getY() + moveY);
     }
     
+    //Buff class implementation; buffs make the enemies move faster
     private class Buff {
         private double duration; // Duration of the buff in seconds
         private double speedMultiplier; // Multiplier for enemy speed while buff is active
@@ -63,8 +66,8 @@ public class Enemy extends Polygon{
             this.speedMultiplier = speedMultiplier;
         }
 
+         // Apply buff effect (increase enemy speed)
         public void apply() {
-            // Apply buff effect (e.g., increase enemy speed)
             stepSize *= speedMultiplier;
 
             // Schedule task to remove buff after duration
