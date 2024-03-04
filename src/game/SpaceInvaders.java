@@ -18,7 +18,7 @@ class SpaceInvaders extends Game{
 	private Turret turret;
 	private List<Enemy> enemies;
 	private List<PowerUp> powerups;
-
+	public int score;
 	
 	public SpaceInvaders() {
         super("SpaceInvaders!", 800, 600);
@@ -61,8 +61,8 @@ class SpaceInvaders extends Game{
 		Random random = new Random();
 		
 		// Calculate spawn position within canvas bounds
-		double canvasWidth = 800; // Width of the canvas
-		double canvasHeight = 600; // Height of the canvas
+		double canvasWidth = 750; // Width of the canvas
+		double canvasHeight = 550; // Height of the canvas
 		double spawnX = random.nextDouble() * canvasWidth;
 		double spawnY = random.nextDouble() * canvasHeight;
 
@@ -80,7 +80,7 @@ class SpaceInvaders extends Game{
     	counter++;
     	brush.setColor(Color.white);
     	brush.drawString("Counter is " + counter,10,10);
-		//Draw all items
+		brush.drawString("Score: " + score, 10, 40); //Writes the score
 		turret.move();
 		turret.paint(brush);
 		turret.updateBullets(brush);
@@ -110,6 +110,7 @@ class SpaceInvaders extends Game{
 				if (enemy.collides(bullet)) {
 					enemies.remove(enemy);
 					bulletIterator.remove(); // Remove bullet
+					scoreboard.increaseScore();
 					break;
 				}
 			}
@@ -124,7 +125,11 @@ class SpaceInvaders extends Game{
 			}
 		}
 	}
-    
+
+	//Lambda expression that increments score
+	ScoreBoard scoreboard = () -> {
+		score++;
+	};
   
 	public static void main (String[] args) {
    		SpaceInvaders a = new SpaceInvaders();
