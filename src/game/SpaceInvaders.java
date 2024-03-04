@@ -19,6 +19,9 @@ class SpaceInvaders extends Game{
 	private List<Enemy> enemies;
 	private List<PowerUp> powerups;
 	public int score;
+	private int waveNumber = 1;
+	private int enemiesPerWave = 1;
+	public static boolean gameOver;
 	
 	public SpaceInvaders() {
         super("SpaceInvaders!", 800, 600);
@@ -28,6 +31,7 @@ class SpaceInvaders extends Game{
 		this.addKeyListener(turret);
         enemies = new ArrayList<>();
 		powerups = new ArrayList<>();
+		gameOver = false;
         spawnEnemy();
 		spawnPowerUp();
     }
@@ -35,7 +39,7 @@ class SpaceInvaders extends Game{
 	public void spawnEnemy() {
 		// Generate random position for enemy spawn
 		Random random = new Random();
-		double minDistance = 150.0; // Adjust as needed
+		double minDistance = 250.0; // Adjust as needed
 		double maxDistance = 600.0; // Adjust as needed
 		double distance = minDistance + random.nextDouble() * (maxDistance - minDistance);
 		double angle = random.nextDouble() * 2 * Math.PI; // Random angle in radians
@@ -56,6 +60,7 @@ class SpaceInvaders extends Game{
 		enemies.add(enemy);
 	}
 
+	//Spawns powerup item
 	public void spawnPowerUp(){
 		//Generates random position for powerup spawn
 		Random random = new Random();
@@ -67,8 +72,24 @@ class SpaceInvaders extends Game{
 		double spawnY = random.nextDouble() * canvasHeight;
 
 		PowerUp powerup = new PowerUp(turret, new Point(spawnX, spawnY), 0);
-		powerups.add(powerup);   
+		powerups.add(powerup);  
 	}
+
+	/// Method to spawn enemies for the current wave
+    public void spawnEnemiesForCurrentWave() {
+        for (int i = 0; i < enemiesPerWave; i++) {
+            spawnEnemy();
+        }
+    }
+
+    // Method to advance to the next wave
+    public void nextWave() {
+		if(enemies.size() == 0){
+			waveNumber++;
+			enemiesPerWave ++; // Increase the number of enemies per wave
+			spawnEnemiesForCurrentWave();	
+		}
+    }
 	
 	@Override
 	public void paint(Graphics brush) {
@@ -81,9 +102,25 @@ class SpaceInvaders extends Game{
     	brush.setColor(Color.white);
     	brush.drawString("Counter is " + counter,10,10);
 		brush.drawString("Score: " + score, 10, 40); //Writes the score
+		brush.drawString("Wave: " + waveNumber, 10, 70); 
 		turret.move();
 		turret.paint(brush);
 		turret.updateBullets(brush);
+
+		//Displays GameOver sign if game is over
+		if (gameOver) {
+			// Set font for the "Game Over" message
+			brush.setColor(Color.red);
+			brush.setFont(new Font("Arial", Font.BOLD, 72));
+			FontMetrics fm = brush.getFontMetrics();
+			int textWidth = fm.stringWidth("Game Over Wave " + waveNumber);
+			int textHeight = fm.getHeight();
+			int x = (width - textWidth) / 2;
+			int y = (height - textHeight) / 2;
+		
+			// Draw the "Game Over" message
+			brush.drawString("Game Over Wave " + waveNumber, x, y);
+		}
 
 		// Iterate over enemies and remove collided ones
 		Iterator<Enemy> enemyIterator = enemies.iterator();
@@ -93,6 +130,7 @@ class SpaceInvaders extends Game{
 			enemy.paint(brush);
 			if (enemy.collides(turret)) {
 				enemyIterator.remove();
+				gameOver = true; //The game ends if an enemy can touch the turret
 			}
 		}
 	
@@ -123,6 +161,9 @@ class SpaceInvaders extends Game{
 					break;
 				}
 			}
+		}
+		if(!gameOver){
+			nextWave();
 		}
 	}
 
