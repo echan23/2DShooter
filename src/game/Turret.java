@@ -7,6 +7,7 @@
 
     public class Turret extends Polygon implements KeyListener{
         private boolean forward, left, right, backward;
+        private static boolean powerUp;
         private final double stepSize = 5.0, rotationIncrement = 5.0;
         // Set shape for the turret
         private static final Point[] turretPoints = {
@@ -19,7 +20,8 @@
             new Point(30, 25),
             new Point(30, 0)
         };
-        private List<Bullet> bullets;
+        protected List<Bullet> bullets;
+
         // Constructor initializes turret with default values and creates bullet list
         public Turret(Point inPosition, double inRotation) {
             super(turretPoints, inPosition, inRotation);
@@ -27,9 +29,15 @@
             left = false;
             right = false;
             backward = false;
+            powerUp = false;
             bullets = new ArrayList<>();
         }
-    
+        
+        //Getter for the list of bullets
+        public List<Bullet> getBullets(){
+            return bullets;
+        }
+
         // Draws the turret polygon on the screen
         public void paint(Graphics brush) {
             int l = this.getPoints().length;
@@ -98,15 +106,33 @@
         // Unused method required by KeyListener interface
         public void keyTyped(KeyEvent e){}
     
+        //Toggles the value of the powerUp boolean
+        public void togglePowerUp(){
+            powerUp = !powerUp;
+        }
+
         // Inner class representing a bullet fired from the turret
         class Bullet extends Polygon{
             private static final double BULLET_SPEED = 15.0;
-            private static final Point[] bulletPoints = {
-                new Point(0, 0),
-                new Point(10, 0),
-                new Point(10, 10),
-                new Point(0, 10)
-            };
+            private static Point[] bulletPoints;
+            static{
+                if (powerUp) {
+                    bulletPoints = new Point[]{
+                            new Point(0, 0),
+                            new Point(5, 0),
+                            new Point(5, 5),
+                            new Point(0, 5)
+                    };
+                } else {
+                    bulletPoints = new Point[]{
+                            new Point(0, 0),
+                            new Point(10, 0),
+                            new Point(10, 10),
+                            new Point(0, 10)
+                    };
+                }
+            }
+
             // Constructor initializes bullet with points and position
             public Bullet(Point position, double rotation) {
                 super(bulletPoints, position, rotation);

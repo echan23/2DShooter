@@ -13,9 +13,9 @@ public class Enemy extends Polygon{
 
     private static Point[] enemyPoints = {
         new Point(0,0),
-        new Point(10,0),
-        new Point(10,10),
-        new Point(0, 10)
+        new Point(20,0),
+        new Point(20,20),
+        new Point(0, 20)
     };
 
     public Enemy(Turret turret, Point inPosition, double inRotation) {
